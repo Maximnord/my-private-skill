@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod o+w /srv/www/iskosta/wp-content /srv/www/iskosta/wp-content/upgrade /srv/www/iskosta/wp-content/cache)",
+      "Bash(curl -s -o /dev/null -w \"Admin: %{http_code}\\\\n\" http://iskosta.local/wp-admin/)",
+      "Read(//etc/apache2/mods-enabled/**)",
+      "Bash(cp /tmp/limits.php /srv/www/iskosta/limits.php)",
+      "Bash(curl -s 'http://iskosta.local/limits.php?cb=__TRACKED_VAR__')",
+      "Bash(curl -s -o /dev/null -w \"Home: %{http_code}\\\\n\" http://iskosta.local/)",
+      "Bash(wp plugin *)",
+      "Bash(wp eval ' *)",
+      "Bash(curl -s -A \"Mozilla/5.0\" https://iskosta.com/ -o /tmp/iskosta-live.html)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -A \"Mozilla/5.0\" https://iskosta.com/wp-content/themes/drive-instructor/assets/css/styles.css -o /tmp/live-styles.css)",
+      "Bash(curl -s http://iskosta.local/he/bait/)",
+      "Bash(wp eval-file *)",
+      "Bash(wp rewrite *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://iskosta.local/he/about/)",
+      "Bash(curl -sL -o /dev/null -w \"redirect chain:\\\\n%{url_effective}\\\\nfinal http: %{http_code}\\\\n\" http://iskosta.local/he/about/)",
+      "Bash(curl -sI http://iskosta.local/he/about/)",
+      "Bash(wp post *)",
+      "Bash(wp eval *)",
+      "Bash(curl -s \"http://thestreethebrew.local/\")",
+      "Bash(grep -rinE '[a-z0-9._%+-]+@[a-z0-9.-]+\\\\.[a-z]{2,}' --include='*.php' --include='*.scss' --include='*.css' --include='*.js' --include='*.json' --include='*.html' --include='*.txt' --include='*.xml' -l .)"
+    ]
+  },
+  "effortLevel": "xhigh",
+  "switchModelsOnFlag": true
+}

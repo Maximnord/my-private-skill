@@ -1,0 +1,88 @@
+# Навыки Claude Code
+
+Личный набор навыков: SEO/GEO-аудит, иврит и RTL, документы, WordPress,
+и процессный слой Matt Pocock.
+
+## Как это устроено: две оси
+
+Навыки разведены по двум **ортогональным** осям, чтобы они дополняли друг друга,
+а не конкурировали за одни и те же слова.
+
+### Ось домена — что проверить и что произвести
+
+Точка входа: **`ai-visibility-method`** (свой, переживает обновления). В нём
+таблица маршрутизации: он выбирает подось и владеет проверками, которые обе
+делают неправильно.
+
+| Подось | Про что | Навыки |
+| --- | --- | --- |
+| ИИ-поиск | видимость внутри ответов ChatGPT, Perplexity, Gemini, AI Overviews | `geo`, `geo-*` (16) |
+| Классический поиск | ранжирование в обычной выдаче Google | `seo`, `seo-*` (12) |
+| Израиль и иврит | морфология, `.co.il`, RTL, IS 5568 | `hebrew-*`, `israeli-accessibility-compliance` |
+
+Одни и те же объекты живут на обеих подосях и **дополняют** друг друга:
+
+| Объект | Классический поиск | ИИ-поиск |
+| --- | --- | --- |
+| Схема | `seo-schema`: какие типы Google ещё рендерит | `geo-schema`: распознавание сущности, sameAs, speakable |
+| Контент | `seo-content`: ключевые слова, медиа, внешние ссылки | `geo-content`: E-E-A-T, абзацы под парсинг |
+| Техника | `seo-technical`: IndexNow, DataForSEO, сроки | `geo-technical`: доступ ИИ-ботов, SSR, INP |
+| Весь сайт | `seo-audit` | `geo-audit` |
+
+Полноценная работа прогоняет обе стороны строки.
+
+### Ось процесса — как вести работу
+
+Точка входа: **`ask-matt`**. Набор [mattpocock/skills](https://github.com/mattpocock/skills),
+подключён симлинками, живёт в `~/.claude/mattpocock-skills`.
+
+Основной поток: `grill-with-docs` → `to-spec` → `to-tickets` → `implement` (внутри
+`tdd`) → `review-two-axis`.
+
+### Где оси сходятся
+
+Разобрано в `ask-matt/SKILL.md`, раздел «Where the domain skills join». Кратко:
+`wp-cms-architect` — источник стандартов для `review-two-axis`; поле `check` из
+тикетов `ai-visibility-method` становится критерием приёмки в `to-tickets`;
+`hebrew-rtl-best-practices` управляет любым UI из `prototype`.
+
+## Установка на новой машине
+
+```bash
+git clone <этот-репозиторий> ~/.claude/skills
+bash ~/.claude/skills/bootstrap/bootstrap.sh
+```
+
+Скрипт клонирует набор Matt Pocock, применяет локальный патч
+(`code-review` → `review-two-axis`, иначе конфликт со встроенной командой),
+пересоздаёт 25 симлинков, ставит агентов и собирает `.venv-docs`.
+
+## Чего в репозитории нет
+
+| Что | Почему | Как получить |
+| --- | --- | --- |
+| `.venv-docs` (~395 МБ) | вес | `bootstrap.sh`, шаг 5 |
+| Браузеры Playwright | вес | `python3 -m playwright install chromium` |
+| `~/.claude/settings.json` | привязан к машине | сверьте с `bootstrap/settings.reference.json` вручную |
+| `.credentials.json` | секреты | никогда |
+
+## Обновления и затирание
+
+`/geo update` перезаписывает `geo/` и `geo-*/` целиком, локальные правки в них
+теряются. Поэтому:
+
+```bash
+cd ~/.claude/skills && git diff        # что затёрлось
+git checkout -- geo/ geo-*/           # вернуть свою версию
+```
+
+Свой код держите вне namespace `geo-*` — для этого и существует
+`ai-visibility-method`.
+
+Набор Matt Pocock обновляется отдельно: `git -C ~/.claude/mattpocock-skills pull`.
+Локальный патч с переименованием закоммичен там же, поэтому `pull` его смёржит.
+
+## Архив
+
+`~/.claude/skills-archive/` (вне репозитория): `seo-geo` и четыре мартовских
+агента `seo-*`, убранные как дубли. Возвращаются копированием обратно.
