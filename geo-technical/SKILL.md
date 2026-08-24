@@ -1,6 +1,6 @@
 ---
 name: geo-technical
-description: Technical SEO audit with GEO-specific checks — crawlability, indexability, security, performance, SSR, and AI crawler access
+description: "Technical audit scored for AI search: crawl access for AI bots, indexability, security, server-side rendering, JavaScript dependency, Core Web Vitals with INP. IndexNow and DataForSEO sit in seo-technical."
 version: 1.0.0
 author: geo-seo-claude
 tags: [geo, technical-seo, core-web-vitals, ssr, crawlability, security, performance]

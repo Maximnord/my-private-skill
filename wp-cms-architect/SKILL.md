@@ -1,17 +1,6 @@
 ---
 name: wp-cms-architect
-description: >
-  Strict guidelines for WordPress theme and plugin development (v2.3). Enforces
-  atomic refactoring (no zombie code / no commented-out blocks left behind),
-  modular architecture, SCSS variable integration with tree-shaking, ACF as the
-  primary content engine (manual admin creation by default; PHP registration
-  only on explicit request), zero hardcoding, proper escaping, clean file
-  organization, and an Audit & Purge "garbage collector" mode that removes
-  obsolete ACF references, dead SCSS selectors, unused JS handlers, and stale
-  enqueue registrations. Triggers on: WordPress theme development, custom
-  theme, ACF fields, template parts, SCSS, WordPress plugin, custom post type,
-  WP_Query, wp_enqueue, WordPress security, audit and purge, garbage
-  collector, refactor WordPress, clean up theme.
+description: "WordPress theme and plugin work under strict rules: atomic refactoring that leaves no dead or commented-out code, modular template parts, SCSS variables with tree-shaking, ACF as the content engine, no hardcoded values, proper escaping. Includes an audit and purge mode that removes obsolete ACF references, dead SCSS selectors, unused JS handlers and stale enqueue registrations."
 ---
 
 # WordPress CMS Architect — Full Development Protocol (v2.3)

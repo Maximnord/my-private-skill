@@ -1,6 +1,6 @@
 ---
 name: content-research-writer
-description: Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing process from solo effort to collaborative partnership.
+description: "Research-backed long-form writing: gathers sources, adds citations, sharpens hooks, iterates on outlines and reviews section by section. Hebrew copy goes to hebrew-content-writer."
 ---
 
 # Content Research Writer

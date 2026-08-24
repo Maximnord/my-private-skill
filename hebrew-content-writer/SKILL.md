@@ -1,6 +1,6 @@
 ---
 name: hebrew-content-writer
-description: Write and edit professional content in Hebrew including marketing copy, UX text, articles, emails, and social media posts. Use when user asks to write in Hebrew, "ktov b'ivrit", create Hebrew marketing content, edit Hebrew text, write Hebrew UX copy, or optimize Hebrew content for SEO. Covers grammar rules, register from formal to dugri, mixed Hebrew/English, gendered language, nikud and numerals, and Hebrew SEO best practices. Do NOT use for Hebrew NLP/ML tasks (use hebrew-nlp-toolkit) or translation (use a translation skill).
+description: "Writes and edits Hebrew copy: marketing, UX text, articles, email, social. Covers register from formal to dugri, gendered forms, nikud, numerals and mixed Hebrew/English. Hebrew files go to hebrew-document-generator; Hebrew search work to hebrew-seo-geo-toolkit."
 license: MIT
 ---
 

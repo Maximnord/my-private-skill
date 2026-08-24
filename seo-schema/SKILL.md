@@ -1,9 +1,6 @@
 ---
 name: seo-schema
-description: >
-  Detect, validate, and generate Schema.org structured data. JSON-LD format
-  preferred. Use when user says "schema", "structured data", "rich results",
-  "JSON-LD", or "markup".
+description: "Which schema types still earn rich results in Google: active, restricted and deprecated status, plus detection, validation and JSON-LD generation. Entity recognition for AI is geo-schema."
 ---
 
 # Schema Markup Analysis & Generation

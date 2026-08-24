@@ -1,6 +1,6 @@
 ---
 name: ai-visibility-method
-description: Method layer and hardened checks for AI-search visibility (GEO) work: RFC 9309 robots.txt evaluation, WAF/CDN detection of blocked AI crawlers, llms.txt link validation, passage-level citability auditing with Hebrew and RTL support, and a ticket loop that re-verifies fixes and flags regressions. This skill should be used whenever a GEO or AI-visibility audit is run, whenever AI crawler access or robots.txt is checked, whenever a page in Hebrew, Arabic, Russian or any non-Latin script is audited for AI citability, whenever llms.txt is validated, and whenever client fixes need machine-checkable acceptance criteria or a monthly re-verification cycle. It complements the geo and seo skills rather than replacing them: use those for reporting, proposals and deliverables, and this one for ordering findings, for the checks those skills get wrong, and for the discipline that keeps numbers defensible.
+description: "Entry point and method layer for any site, URL or audit: decides which skill runs, in what order, and what counts as done. Routes AI-search questions to the geo-* skills and classic-search questions to the seo-* skills, then adds the checks both get wrong: strict RFC 9309 robots.txt parsing, AI crawlers blocked at the WAF or CDN, llms.txt link validation, passage citability in Hebrew and other non-Latin scripts, and a ticket loop that re-verifies fixes and catches regressions. Where it disagrees with geo-* or seo-*, this layer wins."
 allowed-tools: Read, Grep, Glob, Bash, WebFetch, Write
 ---
 
@@ -120,7 +120,63 @@ document: no engine can be promised a citation; visibility numbers are per
 platform and per market, never averaged; attribution is "observed correlation"
 unless a controlled comparison exists.
 
-## Relationship to the installed geo-* skills
+## Routing: which skill answers which question
+
+Two axes, one method. This skill is the entry point: it picks the axis first, the
+skill second. Where a `geo-*` or `seo-*` result disagrees with the checks here,
+this layer wins.
+
+**AI-search axis (`geo-*`)** - visibility inside AI answers.
+
+| Question | Skill |
+| --- | --- |
+| Will an AI quote this page? | `geo-citability` (Hebrew or RTL: the scorer here) |
+| Can AI crawlers reach the site? | `geo-crawlers` (strict cases: `robots_rfc9309.py`, `ai_ua_probe.py`) |
+| Is llms.txt correct? | `geo-llmstxt` (link validation: here) |
+| Why is the brand absent from AI answers? | `geo-brand-mentions` |
+| Does the content carry E-E-A-T? | `geo-content` |
+| Do the entities resolve? | `geo-schema` |
+| Technical health for AI bots | `geo-technical` |
+| One platform specifically | `geo-platform-optimizer` |
+| Whole site at once | `geo-audit` |
+
+**Classic-search axis (`seo-*`)** - ranking in Google's own results.
+
+| Question | Skill |
+| --- | --- |
+| Does this schema type still earn rich results? | `seo-schema` |
+| Keywords, multimedia, external links | `seo-content` |
+| IndexNow, DataForSEO, fix deadlines | `seo-technical` |
+| One page, every element | `seo-page` |
+| Two languages on one domain | `seo-hreflang` |
+| Images | `seo-images` |
+| XML sitemaps | `seo-sitemap` |
+| Strategy for a new or rebuilt site | `seo-plan` |
+| Pages generated at scale from data | `seo-programmatic` |
+| X vs Y and alternatives pages | `seo-competitor-pages` |
+| Whole site at once | `seo-audit` |
+
+**Israel layer (`hebrew-*`, `israeli-*`)** runs alongside either axis, never
+instead of one: `hebrew-seo-geo-toolkit` for Hebrew morphology, `.co.il` and
+Israeli business schema; `hebrew-document-generator` for any Hebrew deliverable;
+`israeli-accessibility-compliance` for IS 5568.
+
+### Pairs that extend each other
+
+The axes are cut by question, not by object, so the same object appears on both
+sides and the pair is complementary rather than competing:
+
+| Object | Classic axis | AI axis |
+| --- | --- | --- |
+| Schema | `seo-schema`: which types Google still renders | `geo-schema`: entity recognition, sameAs, speakable |
+| Content | `seo-content`: keywords, media, external links | `geo-content`: E-E-A-T, machine-parseable paragraphs |
+| Technical | `seo-technical`: IndexNow, DataForSEO, deadlines | `geo-technical`: AI bot access, SSR, INP |
+| Whole site | `seo-audit` | `geo-audit` |
+
+A full engagement runs both sides of a row. Reporting one side as the whole
+picture is the failure this routing exists to prevent.
+
+## Update safety
 
 `geo-update` overwrites everything under `~/.claude/skills/geo/` and
 `~/.claude/skills/geo-*/` from its upstream repository. This skill sits outside

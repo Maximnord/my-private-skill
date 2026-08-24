@@ -1,9 +1,6 @@
 ---
 name: seo-page
-description: >
-  Deep single-page SEO analysis covering on-page elements, content quality,
-  technical meta tags, schema, images, and performance. Use when user says
-  "analyze this page", "check page SEO", or provides a single URL for review.
+description: "Deep pass over a single page: title, headings, meta tags, internal links, images, schema and speed together. The whole-site form is seo-audit."
 ---
 
 # Single Page Analysis

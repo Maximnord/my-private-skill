@@ -1,6 +1,6 @@
 ---
 name: pdf
-description: Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale.
+description: "PDF work: extract text and tables, create new files, merge, split, and fill forms. Hebrew PDFs go to hebrew-document-generator."
 license: Proprietary. LICENSE.txt has complete terms
 ---
 

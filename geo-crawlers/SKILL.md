@@ -1,6 +1,6 @@
 ---
 name: geo-crawlers
-description: AI crawler access analysis. Checks robots.txt, meta tags, and HTTP headers to determine which AI crawlers can access the site. Provides a complete access map and recommendations for maximizing AI visibility while maintaining appropriate control.
+description: "Maps which AI crawlers can reach a site, reading robots.txt, meta tags and HTTP headers. Covers the ordinary cases; strict RFC 9309 parsing and crawlers blocked at the WAF or CDN live in ai-visibility-method."
 allowed-tools:
   - Read
   - Grep

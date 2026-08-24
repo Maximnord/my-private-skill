@@ -1,6 +1,6 @@
 ---
 name: hebrew-seo-geo-toolkit
-description: Optimize websites for Hebrew SEO and GEO (Generative Engine Optimization) on Google.co.il and AI search engines (ChatGPT, Perplexity, Gemini, Copilot, Claude). Use when user asks about Hebrew keyword research, Israeli SEO, .co.il domain optimization, Hebrew schema.org markup, AI search visibility, GEO optimization, EEAT, or asks about "kidum atarim", "milot mafteach", "SEO", "GEO", or Israeli search ranking. Includes Hebrew morphological analysis, Princeton GEO methods, platform-specific AI optimization, EEAT principles, JSON-LD structured data, and Israeli business schema (Shabbat hours, kosher certification). Do NOT use for paid advertising campaigns or social media marketing.
+description: "Israel-specific search work: Hebrew morphology and keyword forms, google.co.il, .co.il domains, and Israeli business schema such as Shabbat hours and kosher certification. The general axes stay in geo-* and seo-*."
 license: MIT
 compatibility: Requires network access for keyword analysis and audits. Works with Claude Code, Cursor, GitHub Copilot, Windsurf, OpenCode, Codex.
 ---

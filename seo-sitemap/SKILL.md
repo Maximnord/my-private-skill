@@ -1,9 +1,6 @@
 ---
 name: seo-sitemap
-description: >
-  Analyze existing XML sitemaps or generate new ones with industry templates.
-  Validates format, URLs, and structure. Use when user says "sitemap",
-  "generate sitemap", "sitemap issues", or "XML sitemap".
+description: "XML sitemaps: validate an existing one, or generate a new one from industry templates with quality gates for location pages."
 ---
 
 # Sitemap Analysis & Generation

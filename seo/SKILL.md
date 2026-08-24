@@ -1,17 +1,6 @@
 ---
 name: seo
-description: >
-  Comprehensive SEO analysis for any website or business type. Performs full site
-  audits, single-page deep analysis, technical SEO checks (crawlability, indexability,
-  Core Web Vitals with INP), schema markup detection/validation/generation, content
-  quality assessment (E-E-A-T framework per Dec 2025 update extending to all
-  competitive queries), image optimization, sitemap analysis, and Generative Engine
-  Optimization (GEO) for AI Overviews, ChatGPT, and Perplexity citations. Analyzes
-  AI crawler accessibility (GPTBot, ClaudeBot, PerplexityBot), llms.txt compliance,
-  brand mention signals, and passage-level citability. Industry detection for SaaS,
-  e-commerce, local business, publishers, agencies. Triggers on: "SEO", "audit",
-  "schema", "Core Web Vitals", "sitemap", "E-E-A-T", "AI Overviews", "GEO",
-  "technical SEO", "content quality", "page speed", "structured data".
+description: "Umbrella for the classic-search axis: on-page elements, technical health, rich-result schema, images, sitemaps and content quality for Google's ranked results, delegating to the seo-* skills. Visibility inside AI answers is the geo-* axis."
 ---
 
 # SEO — Universal SEO Analysis Skill

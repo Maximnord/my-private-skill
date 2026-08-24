@@ -1,6 +1,6 @@
 ---
 name: lead-research-assistant
-description: Identifies high-quality leads for your product or service by analyzing your business, searching for target companies, and providing actionable contact strategies. Perfect for sales, business development, and marketing professionals.
+description: "Finds and qualifies leads for a product or service: profiles the offer, searches for matching companies, proposes contact angles. Tracking them through a pipeline is geo-prospect."
 ---
 
 # Lead Research Assistant

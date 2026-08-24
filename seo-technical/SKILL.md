@@ -1,10 +1,6 @@
 ---
 name: seo-technical
-description: >
-  Technical SEO audit across 8 categories: crawlability, indexability, security,
-  URL structure, mobile, Core Web Vitals, structured data, and JavaScript
-  rendering. Use when user says "technical SEO", "crawl issues", "robots.txt",
-  "Core Web Vitals", "site speed", or "security headers".
+description: "The classic technical checks the AI axis leaves out: IndexNow submission, DataForSEO data, and fixes bucketed by deadline. Crawl access, SSR and Core Web Vitals scoring live in geo-technical."
 ---
 
 # Technical SEO Audit

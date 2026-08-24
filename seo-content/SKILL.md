@@ -1,9 +1,6 @@
 ---
 name: seo-content
-description: >
-  Content quality and E-E-A-T analysis with AI citation readiness assessment.
-  Use when user says "content quality", "E-E-A-T", "content analysis",
-  "readability check", "thin content", or "content audit".
+description: "The classic content axis: keyword coverage, multimedia, external links, readability scoring and thin-content detection. E-E-A-T judged for AI citability is geo-content."
 ---
 
 # Content Quality & E-E-A-T Analysis

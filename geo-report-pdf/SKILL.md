@@ -1,6 +1,6 @@
 ---
 name: geo-report-pdf
-description: Generate a professional PDF report from a GEO audit using pandoc + Chrome headless. Converts GEO-AUDIT-REPORT.md into a styled, client-ready PDF with a cover page, color-coded score tables, severity-tagged findings, and a 90-day roadmap.
+description: "Renders GEO-AUDIT-REPORT.md into a styled client PDF via pandoc and headless Chrome. Hebrew or mixed Hebrew/English reports go to hebrew-document-generator, which handles RTL."
 version: 2.0.0
 author: geo-seo-claude
 tags: [geo, pdf, report, client-deliverable, professional]

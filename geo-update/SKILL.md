@@ -1,6 +1,6 @@
 ---
 name: geo-update
-description: Pull the latest GEO-SEO skill updates from the upstream repository. Compares installed files against the latest release, shows what changed, and updates all skills, agents, scripts, and schema templates in place.
+description: "Pulls the latest geo/ and geo-*/ from the upstream repository, overwriting them. Local edits to those folders are lost, so run git diff afterwards and re-apply what mattered."
 allowed-tools:
   - Bash
   - Read
