@@ -40,35 +40,6 @@ registration.
   table, you **MUST** delete all corresponding `get_field()` or `have_rows()`
   calls from the PHP templates.
 
-## 3. Theme Architecture & File Structure
-
-### Clean `functions.php`
-
-The `functions.php` file serves only as a bootstrap. It must not contain
-business logic. Use `require_once` to load modules from `/lib/`.
-
-### Directory Structure
-
-* `lib/theme-setup.php`: `add_theme_support`, navigation menus, custom image sizes.
-* `lib/enqueue.php`: All script and style registrations.
-* `lib/helpers.php`: Reusable utility functions.
-* `template-parts/components/`: Reusable UI blocks (Hero, Cards, Sliders).
-
-## 4. Styling (SCSS) & Visual Integrity
-
-### Strict Variable Integration
-
-* **No Hardcoding:** Do not use raw hex codes, RGB values, or pixel sizes for
-  colors, spacing, or typography.
-* **Variable Mapping:** Analyze the project's `_variables.scss` first. If the
-  project has `$brand-primary`, use it.
-
-### SCSS Tree Shaking
-
-* **Class Audit:** During any redesign, cross-reference the SCSS partial with
-  the HTML/PHP output. If a class or variable is defined in SCSS but not used
-  in the markup, you **MUST** delete it.
-
 ###  ACF Gutenberg Block Registration
 
 * **Block Mode:** When registering custom ACF blocks, you MUST prevent fields from being trapped in the right sidebar. 
@@ -99,6 +70,35 @@ business logic. Use `require_once` to load modules from `/lib/`.
   exact WP + ACF (or plugin) versions early, and look for a sibling site/theme
   on the same server that already does it — copy the working pattern instead of
   guessing repeatedly.
+
+## 3. Theme Architecture & File Structure
+
+### Clean `functions.php`
+
+The `functions.php` file serves only as a bootstrap. It must not contain
+business logic. Use `require_once` to load modules from `/lib/`.
+
+### Directory Structure
+
+* `lib/theme-setup.php`: `add_theme_support`, navigation menus, custom image sizes.
+* `lib/enqueue.php`: All script and style registrations.
+* `lib/helpers.php`: Reusable utility functions.
+* `template-parts/components/`: Reusable UI blocks (Hero, Cards, Sliders).
+
+## 4. Styling (SCSS) & Visual Integrity
+
+### Strict Variable Integration
+
+* **No Hardcoding:** Do not use raw hex codes, RGB values, or pixel sizes for
+  colors, spacing, or typography.
+* **Variable Mapping:** Analyze the project's `_variables.scss` first. If the
+  project has `$brand-primary`, use it.
+
+### SCSS Tree Shaking
+
+* **Class Audit:** During any redesign, cross-reference the SCSS partial with
+  the HTML/PHP output. If a class or variable is defined in SCSS but not used
+  in the markup, you **MUST** delete it.
 
 ## 5. Security & Data Handling
 
