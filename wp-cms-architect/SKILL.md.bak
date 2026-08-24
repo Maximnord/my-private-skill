@@ -1,0 +1,229 @@
+---
+name: wp-cms-architect
+description: >
+  Strict guidelines for WordPress theme and plugin development. Enforces modular
+  architecture, SCSS styling, ACF as the primary content engine, zero hardcoding,
+  proper escaping, and clean file organization. Triggers on: WordPress theme development,
+  custom theme, ACF fields, template parts, SCSS, WordPress plugin, custom post type,
+  WP_Query, wp_enqueue, WordPress security.
+---
+
+# WordPress CMS Architect — Development Protocols
+
+You are an expert WordPress developer. Strictly adhere to the following rules
+when writing or modifying any code.
+
+## 1. Core Philosophy (Zero Hardcoding)
+
+- **CMS First:** WordPress is a Content Management System. Never hardcode text,
+  headings, images, or any data that a site administrator should be able to edit.
+- **DRY & Modular:** Write reusable, single-purpose code. Do not duplicate logic.
+  Three similar lines are better than a premature abstraction, but identical
+  blocks repeated across files must be extracted.
+
+## 2. Advanced Custom Fields (ACF) Workflow
+
+### Field Creation — User's Responsibility
+
+Do NOT generate PHP code (`acf_add_local_field_group`) or JSON files to register
+ACF fields. The user manages all field creation manually in the WordPress admin UI.
+
+### Your Task for ACF
+
+When a feature requires editable content, output a clear instruction block:
+
+```
+ACF FIELD GROUP: [Group Name]
+Location Rule: [e.g., Page Template == "Landing Page"]
+
+| Field Label       | Name (snake_case) | Type     | Return Format | Notes              |
+|-------------------|-------------------|----------|---------------|--------------------|
+| Hero Title        | hero_title        | Text     | —             | Required, max 80ch |
+| Hero Image        | hero_image        | Image    | Image Array   | Min 1200×630       |
+| Features          | features          | Repeater | —             | Min 1, Max 6       |
+| └ Feature Icon    | feature_icon      | Image    | Image Array   | SVG recommended    |
+| └ Feature Title   | feature_title     | Text     | —             | Required           |
+| └ Feature Text    | feature_text      | Textarea | —             | Max 200ch          |
+```
+
+### ACF Options Pages
+
+Site-wide settings (social links, business info, global CTAs, contact details)
+must use an **ACF Options Page**, not the Customizer or hardcoded values.
+
+### Code Implementation
+
+- Use standard ACF functions: `get_field()`, `get_sub_field()`, `have_rows()`.
+- **Always** check if a field has data before outputting HTML:
+  ```php
+  <?php $title = get_field( 'hero_title' ); if ( $title ) : ?>
+      <h1><?php echo esc_html( $title ); ?></h1>
+  <?php endif; ?>
+  ```
+
+## 3. Architecture & File Structure
+
+### Keep `functions.php` Clean
+
+`functions.php` is a bootstrap file only. It requires files — it does not
+contain business logic, CPT registrations, or helper functions.
+
+```php
+// functions.php — bootstrap only
+require_once get_template_directory() . '/lib/theme-setup.php';
+require_once get_template_directory() . '/lib/enqueue.php';
+require_once get_template_directory() . '/lib/cpt-registrations.php';
+require_once get_template_directory() . '/lib/tax-registrations.php';
+require_once get_template_directory() . '/lib/customizer.php';
+require_once get_template_directory() . '/lib/helpers.php';
+require_once get_template_directory() . '/lib/acf-options.php';
+```
+
+### The `/lib` Directory
+
+```
+lib/
+├── theme-setup.php        # add_theme_support, register_nav_menus
+├── enqueue.php            # All wp_enqueue_scripts / admin_enqueue_scripts
+├── cpt-{name}.php         # One file per custom post type
+├── tax-{name}.php         # One file per custom taxonomy
+├── customizer.php         # Customizer settings (minimal — prefer ACF Options)
+├── helpers.php            # Utility / helper functions
+└── acf-options.php        # ACF options page registration
+```
+
+### Component Templates
+
+Reusable UI blocks live in `/template-parts/components/`.
+
+```
+template-parts/
+├── components/
+│   ├── hero.php
+│   ├── card-post.php
+│   ├── cta-banner.php
+│   └── author-bio.php
+└── content/
+    ├── content-single.php
+    └── content-archive.php
+```
+
+- Use `get_template_part()` to include components, passing data via `$args`:
+  ```php
+  get_template_part( 'template-parts/components/card-post', null, array(
+      'post_id' => $post->ID,
+      'size'    => 'small',
+  ) );
+  ```
+- **One component = one PHP file + one SCSS partial.**
+
+### Asset Management
+
+All CSS and JS must be enqueued via `wp_enqueue_scripts` or `admin_enqueue_scripts`.
+Never write inline `<style>` or `<script>` tags in templates.
+
+## 4. Styling (SCSS)
+
+### SCSS Only
+
+All styling for local development must be written in SCSS, compiled to a single
+`main.css` (or equivalent) via the project's build tool.
+
+### File Organization
+
+```
+assets/scss/
+├── _variables.scss       # Colors, typography, spacing, breakpoints
+├── _mixins.scss          # Reusable mixins (responsive, truncate, etc.)
+├── base/
+│   ├── _reset.scss
+│   └── _typography.scss
+├── components/           # One partial per UI component
+│   ├── _hero.scss
+│   ├── _card-post.scss
+│   └── _cta-banner.scss
+├── layouts/
+│   ├── _header.scss
+│   ├── _footer.scss
+│   └── _sidebar.scss
+├── pages/                # Page-specific overrides (use sparingly)
+│   └── _home.scss
+└── main.scss             # Imports only — no direct styles
+```
+
+### Strict Variables
+
+Use the project's existing SCSS variables for colors, typography, spacing, and
+breakpoints. Do not invent new hardcoded hex codes, RGB values, or raw pixel
+sizes if a variable exists or should logically be created.
+
+### Build Tooling
+
+The project's build tool (Vite, Webpack, Gulp, etc.) handles SCSS compilation
+and JS bundling. Do not modify the build config without explicit user approval.
+
+### Matching Mockups
+
+When provided with a mockup, generate HTML/PHP and SCSS that matches it
+precisely, integrating with existing theme variables and structure.
+
+## 5. Images
+
+- Always use `wp_get_attachment_image()` for responsive `srcset` output.
+  Never use raw `<img src="<?php echo $url; ?>">`.
+- Define custom image sizes in theme setup when needed:
+  ```php
+  add_image_size( 'card-thumb', 400, 250, true );
+  ```
+- Use `loading="lazy"` for below-fold images (WordPress adds this by default).
+  Use `fetchpriority="high"` for LCP images.
+
+## 6. Queries
+
+- Use `WP_Query` for custom loops. **Never use `query_posts()`.**
+- Always call `wp_reset_postdata()` after custom queries.
+- Set `'no_found_rows' => true` when pagination is not needed (performance).
+- Set `'update_post_meta_cache' => false` and `'update_post_term_cache' => false`
+  when meta/terms are not needed.
+
+## 7. Security & Standards
+
+### Escape Everything
+
+All dynamic data output to the browser must be escaped:
+
+| Context       | Function                |
+|---------------|------------------------|
+| HTML text     | `esc_html()` / `esc_html__()` |
+| HTML attribute| `esc_attr()` / `esc_attr__()` |
+| URL           | `esc_url()`            |
+| Rich HTML     | `wp_kses_post()`       |
+| JavaScript    | `wp_json_encode()`     |
+
+### Sanitize All Input
+
+All data being saved must be sanitized:
+
+| Data Type     | Function                  |
+|---------------|---------------------------|
+| Plain text    | `sanitize_text_field()`   |
+| Integer       | `absint()`                |
+| Email         | `sanitize_email()`        |
+| URL           | `esc_url_raw()`           |
+| Rich HTML     | `wp_kses_post()`          |
+
+### Nonces & Capabilities
+
+All form handlers and AJAX callbacks must verify nonces (`wp_verify_nonce`)
+and check user capabilities (`current_user_can`) before processing.
+
+### Translation Ready
+
+Wrap all static strings in i18n functions:
+`__()`, `_e()`, `esc_html__()`, `esc_html_e()`, `esc_attr__()`.
+Use the project's text domain consistently.
+
+### Prefixing
+
+Prefix all custom functions and global variables with the project's namespace
+to prevent collisions (e.g., `freemanyoga_`, `mytheme_`).
