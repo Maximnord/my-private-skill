@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: "Structures and packages a new skill: folder layout, frontmatter, bundled scripts and reference files, validation."
+description: "Structures and packages a new skill: folder layout, frontmatter, bundled scripts and reference files, validation. How to write the text so it fires reliably is writing-for-agents."
 license: Complete terms in LICENSE.txt
 ---
 

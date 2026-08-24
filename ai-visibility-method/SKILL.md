@@ -98,6 +98,12 @@ basis (which reference section justifies it), and a `check` that a machine can
 decide. Anything a machine cannot decide is typed `manual` and is never
 auto-completed.
 
+When the fixes go to a client's developer rather than back into this loop, hand
+them to `/to-tickets`: it turns each one into a tracer-bullet ticket carrying its
+blocking edges, so the developer can see what is takeable today. The `check`
+field written here becomes that ticket's acceptance criterion, and Step 6
+re-verifies it from the same string.
+
 ```bash
 python3 scripts/verify_tickets.py <client>/tickets.json            # dry run
 python3 scripts/verify_tickets.py <client>/tickets.json --write    # persist statuses

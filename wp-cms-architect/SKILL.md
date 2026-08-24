@@ -1,6 +1,6 @@
 ---
 name: wp-cms-architect
-description: "WordPress theme and plugin work under strict rules: atomic refactoring that leaves no dead or commented-out code, modular template parts, SCSS variables with tree-shaking, ACF as the content engine, no hardcoded values, proper escaping. Includes an audit and purge mode that removes obsolete ACF references, dead SCSS selectors, unused JS handlers and stale enqueue registrations."
+description: "WordPress theme and plugin work under strict rules: atomic refactoring that leaves no dead or commented-out code, modular template parts, SCSS variables with tree-shaking, ACF as the content engine, no hardcoded values, proper escaping. Includes an audit and purge mode that removes obsolete ACF references, dead SCSS selectors, unused JS handlers and stale enqueue registrations. It is also the Standards source that review-two-axis reads on WordPress work."
 ---
 
 # WordPress CMS Architect — Full Development Protocol (v2.3)
