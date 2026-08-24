@@ -10,14 +10,14 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 
 [ -d "$SKILLS/.git" ] || { echo "error: запускать после клонирования репозитория в $SKILLS"; exit 1; }
 
-echo "== 1/5 набор Matt Pocock (ось процесса) =="
+echo "== 1/6 набор Matt Pocock (ось процесса) =="
 if [ -d "$MP/.git" ]; then
   git -C "$MP" pull --ff-only && echo "  обновлён"
 else
   git clone --depth 1 https://github.com/mattpocock/skills.git "$MP"
 fi
 
-echo "== 2/5 локальный патч: code-review -> review-two-axis =="
+echo "== 2/6 локальный патч: code-review -> review-two-axis =="
 # Встроенный /code-review ищет баги корректности; этот проверяет стандарты и спеку.
 # Имена не должны совпадать, иначе один затеняет другой.
 CR="$MP/skills/engineering/code-review/SKILL.md"
@@ -29,7 +29,7 @@ else
   echo "  уже применён"
 fi
 
-echo "== 3/5 симлинки на 25 навыков процесса =="
+echo "== 3/6 симлинки на 25 навыков процесса =="
 python3 - "$MP" "$SKILLS" <<'PY'
 import json, os, sys
 mp, dest = sys.argv[1], sys.argv[2]
@@ -47,12 +47,25 @@ for rel in json.load(open(f"{mp}/.claude-plugin/plugin.json"))["skills"]:
 print(f"  создано: {n}")
 PY
 
-echo "== 4/5 агенты =="
+echo "== 4/6 агенты =="
 mkdir -p "$CLAUDE_DIR/agents"
 cp -n "$SKILLS/agents/"*.md "$CLAUDE_DIR/agents/" 2>/dev/null || true
 echo "  в $CLAUDE_DIR/agents: $(ls "$CLAUDE_DIR"/agents/*.md 2>/dev/null | wc -l) шт."
 
-echo "== 5/5 Python-окружение для документов (docx, pdf, pptx, xlsx, иврит) =="
+echo "== 5/6 глобальные правила =="
+if [ -f "$CLAUDE_DIR/CLAUDE.md" ]; then
+  if cmp -s "$HERE/CLAUDE.global.md" "$CLAUDE_DIR/CLAUDE.md"; then
+    echo "  уже на месте"
+  else
+    echo "  $CLAUDE_DIR/CLAUDE.md отличается, не перезаписываю."
+    echo "  сверьте вручную: diff $HERE/CLAUDE.global.md $CLAUDE_DIR/CLAUDE.md"
+  fi
+else
+  cp "$HERE/CLAUDE.global.md" "$CLAUDE_DIR/CLAUDE.md"
+  echo "  установлен $CLAUDE_DIR/CLAUDE.md"
+fi
+
+echo "== 6/6 Python-окружение для документов (docx, pdf, pptx, xlsx, иврит) =="
 if [ -d "$SKILLS/.venv-docs" ]; then
   echo "  уже есть"
 else
